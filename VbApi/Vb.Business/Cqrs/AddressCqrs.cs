@@ -1,0 +1,14 @@
+using MediatR;
+using Vb.Base.Response;
+using Vb.Schema;
+
+namespace Vb.Business.Cqrs;
+
+public record GetAllAddressQuery() : IRequest<ApiResponse<List<AddressResponse>>>;
+public record GetAddressByIdQuery(int Id) : IRequest<ApiResponse<AddressResponse>>;
+public record CreateAddressCommand(AddressRequest Model) : IRequest<ApiResponse<AddressResponse>>;
+public record UpdateAdressCommand(int Id, AddressRequest Model) : IRequest<ApiResponse>;
+public record DeleteAddressCommand(int Id) : IRequest<ApiResponse>;
+public record GetAddressByParameterQuery(string CustomerName, string Address1, string Address2) : IRequest<ApiResponse<List<AddressResponse>>>;
+
+
