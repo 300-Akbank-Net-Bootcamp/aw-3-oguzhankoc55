@@ -20,49 +20,49 @@ namespace VbApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ApiResponse<List<AccountTransactionResponse>>>> GetAllAddresses()
+        public async Task<ActionResult<ApiResponse<List<AddressResponse>>>> GetAllAddresses()
         {
-            var query = new GetAllAccountTransactionQuery();
+            var query = new GetAllAddressQuery();
             var result = await _mediator.Send(query);
             return Ok(result); // ApiResponse<List<AddressResponse>> direkt olarak döndürülüyor.
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ApiResponse<AccountTransactionResponse>>> GetAccountTransactionById(int id)
+        public async Task<ActionResult<ApiResponse<AddressResponse>>> GetAddressById(int id)
         {
-            var query = new GetAccountTransactionByIdQuery(id);
+            var query = new GetAddressByIdQuery(id);
             var result = await _mediator.Send(query);
             return Ok(result); // ApiResponse<AddressResponse> direkt olarak döndürülüyor.
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<ApiResponse<List<AccountTransactionResponse>>>> GetAccountTransactionByParameter([FromQuery] string customerName, [FromQuery] string address1, [FromQuery] string address2)
+        public async Task<ActionResult<ApiResponse<List<AddressResponse>>>> GetAddressesByParameter([FromQuery] string customerName, [FromQuery] string address1, [FromQuery] string address2)
         {
-            var query = new GetAccountTransactionByParameterQuery(customerName, address1, address2);
+            var query = new GetAddressByParameterQuery(customerName, address1, address2);
             var result = await _mediator.Send(query);
             return Ok(result); // ApiResponse<List<AddressResponse>> direkt olarak döndürülüyor.
         }
 
         [HttpPost]
-        public async Task<ActionResult<ApiResponse<AccountTransactionResponse>>> CreateAccountTransaction([FromBody] AccountTransactionRequest address)
+        public async Task<ActionResult<ApiResponse<AddressResponse>>> CreateAddress([FromBody] AddressRequest address)
         {
-            var command = new CreateAccountTransactionCommand(address);
+            var command = new CreateAddressCommand(address);
             var result = await _mediator.Send(command);
             return Ok(result); // ApiResponse<AddressResponse> direkt olarak döndürülüyor.
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<ApiResponse<AddressResponse>>> UpdateAccountTransaction(int id, [FromBody] AccountTransactionRequest address)
+        public async Task<ActionResult<ApiResponse<AddressResponse>>> UpdateAddress(int id, [FromBody] AddressRequest address)
         {
-            var command = new UpdateAccountTransactionCommand(id, address);
+            var command = new UpdateAdressCommand(id, address);
             var result = await _mediator.Send(command);
             return Ok(result); // ApiResponse<AddressResponse> direkt olarak döndürülüyor.
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ApiResponse>> DeleteAccountTransaction(int id)
+        public async Task<ActionResult<ApiResponse>> DeleteAddress(int id)
         {
-            var command = new DeleteAccountTransactionCommand(id);
+            var command = new DeleteAddressCommand(id);
             var result = await _mediator.Send(command);
             return Ok(result); // ApiResponse direkt olarak döndürülüyor.
         }
