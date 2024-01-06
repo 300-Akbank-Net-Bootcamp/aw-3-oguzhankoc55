@@ -24,6 +24,13 @@ namespace VbApi.Controllers
             var result = await _mediator.Send(query);
             return result;
         }
+        [HttpGet("search")]
+        public async Task<ActionResult<ApiResponse<List<CustomerResponse>>>> GetCustomersByParameter([FromQuery] string FirstName, [FromQuery] string LastName, [FromQuery] string IdentityNumber)
+        {
+            var query = new GetCustomerByParameterQuery(FirstName, LastName, IdentityNumber);
+            var result = await _mediator.Send(query);
+            return Ok(result); // ApiResponse<List<AddressResponse>> direkt olarak döndürülüyor.
+        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ApiResponse<CustomerResponse>>> GetCustomerById(int id)
